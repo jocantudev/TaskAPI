@@ -4,9 +4,15 @@ module.exports = {
   getTareas: async (req, res) => {
     try {
       const tareas = await Tarea.find().select("-__v");
-      res.json(tareas);
+      res.status(200).json({
+        status: "success",
+        data: tareas,
+      });
     } catch (err) {
-      console.log(err);
+      res.status(400).json({
+        status: "fail",
+        message: err,
+      });
     }
   },
   getTarea: async (req, res) => {
@@ -23,7 +29,6 @@ module.exports = {
       console.log(req.body);
       console.log("Todo has been added!");
       return res.json(req.body);
-      //   res.redirect('/todos')
     } catch (err) {
       console.log(err);
     }
